@@ -1,28 +1,6 @@
 # NYC-AIRBnB-analysis
 This project involves an in-depth analysis of a New York City dataset. The dataset contains rent data, housing categories, and time periods. The goal is to uncover insights into rent trends, revenue performance, housing information which can be used in pricing adjustments,booking behavior, host listing density, supply-demand imbalance.
 
-# Dataset-Description
-| Column name      | Data-Type | Data-Type Saved in PostgreSQL  | Description |
-|----------------|---------------|----------------|-------------|
-| id   | integer   | integer |  unique identifier for each building.     |
-| name     | string  | text         | name of each building.       |
-| host id |integer | integer         | unique identifier of each building owner.        |
-| host name      | text |text          | name of each building owner.       |
-| neighbourhood group | text | text | NYC segment where building is located.|
-| neighbourhood| text | text | neighbourhood where building is located.|
-|latitude| numeric| numeric|specific coordinates north or south of the equator.|
-| longitude| numeric| numeric| specific coordinates east and west of the prime meridian.|
-| room type| text | text | subset of the room rented.| 
-|minimum nights| integer |integer| minimum nights host enforces.|
-| number of reviews| integer | integer |number of reviews left by customers.|
-|last review|timestamp with time zone|timestamp with time zone| recent date and time a consumer left a review.|
-|reviews per month| integer| integer| average reviews submitted a month|
-|calculated host listing count| integer| integer| number of listings per host|
-|availability 365|integer| integer| number of available days in a year|
-
-DATASET SIZE: 48,894 rows, 15 columns.
-TIME PERIOD COVERED: January 2015 - December 2019.
-
 # Objectives
 1. Identify listings with revenue potential.
 2. Analyze availabilty and revenue per neighbourhood.
@@ -30,9 +8,30 @@ TIME PERIOD COVERED: January 2015 - December 2019.
 
 # Data cleaning and reprocessing
 1. Removed 1000+ duplicates.
-2. Confirmed all dates standard to DD/MM/YYYY with Time stamp.
-3. Formatted uneven segments.
-   
+2. Confirmed all dates standard to DD/MM/YYYY with the Time stamp.
+3. Formatted uneven segments across multiple rows.
+
+##  Dataset
+| Detail | Info |
+|---|---|
+| **Source** | Kaggle |
+| **Scope** | Air-BnB listings across NewYork |
+| **Size** | 48,894 rows · 18 columns |
+| **Period** | January 2015 – December 2019 |
+| **Key columns** | Name, Host id, Neighbourhood, Availability 365. |
+
+## SQL Approach
+Key techniques used:
+- Window functions for potential revenue ranking across neighbourhood groups.
+```sql
+SELECT 
+    room_type,
+    AVG(price * availability_365) AS avg_annual_revenue_potential
+FROM airbnb_listings
+GROUP BY room_type
+ORDER BY avg_annual_revenue_potential DESC;
+```
+
   
 # Insights
 1. 99.8% of listings above $1000 a night are available through the year.
