@@ -30,18 +30,35 @@ SELECT
 FROM airbnb_listings
 GROUP BY room_type
 ORDER BY avg_annual_revenue_potential DESC;
+
+SELECT 
+    neighbourhood_group,
+    ROUND(AVG(availability_365), 2) AS avg_availability
+FROM airbnb_listings
+GROUP BY neighbourhood_group
+ORDER BY avg_availability ASC;
+
+SELECT 
+    neighbourhood,
+    ROUND(AVG(price), 2) AS avg_price,
+    ROUND(AVG(reviews_per_month), 2) AS avg_reviews_per_month
+FROM airbnb_listings
+GROUP BY neighbourhood
+HAVING AVG(reviews_per_month) IS NOT NULL
+ORDER BY avg_reviews_per_month DESC, avg_price DESC
+LIMIT 20;
 ```
 
   
 # Insights
-1. 99.8% of listings above $1000 a night are available through the year.
-2. Listings with minimum stays under 20 nights show significantly lower availability, suggesting higher booking frequency.
+1. 99.8% of listings above $1000 a night are available through the year. They receive no bookings.
+2. Listings with minimum stays under 20 nights show higher booking frequency drives lower availability.
 3. 56.8% of listings are Entire home/apartments. They also possess the highest revenue potential due to high prices but are the most available year round, 45% are available more than 200 days a year though this metric is likely inflated  due to listings with high prices.
 4. Private/shared rooms possess less revenue potential but are in use 85% of the year. 
 5. Brooklyn and Manhattan have the lowest average availability with The Bronx and Staten Island having the highest. Queens stays in the middle with 144.45 days availability average a year.
 
 # Key Findings
-1. Highly priced listings are mostly empty.
+1. Highly priced listings are mostly empty as a result of both over-pricing and high booking frequencies.
 2. Listings in Brooklyn and Manhattan are the most sought after locations likely due to proximity to the economic hub of the City.
 3. As proximity reduces, availability averages increase.
 
