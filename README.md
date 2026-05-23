@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/NYC banner.png">
+</p>
+
 # NYC-AIRBnB-analysis
 This project involves an in-depth analysis of a New York City dataset. The dataset contains rent data, housing categories, and time periods. The goal is to uncover insights into rent trends, revenue performance, housing information which can be used in pricing adjustments,booking behavior, host listing density, supply-demand imbalance.
 
